@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 
-    float speed = 0.5f;
+    public float moveSpeed = 3f;
+    public float turnSpeed = 0.02f;
 
 	void Start () {
         Vector2 simpleTriangle = new Vector2(1, Mathf.Sqrt(3));
@@ -19,35 +20,49 @@ public class Movement : MonoBehaviour {
 	void Update () {
         Turn();
         MoveForward();
-
+        Camera.main.transform.LookAt(transform);
     }
 
     void Turn()
     {
-        float horiz = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");
-        print(horiz + " : " + vert);
-        //set forward vect directly for now, lerp later
-        transform.forward = GetVectFromAngles(horiz, vert);
+        float horiz = Input.GetAxisRaw("Horizontal");
+        float vert = Input.GetAxisRaw("Vertical");
+        //print(horiz + " : " + vert);
+        if (horiz != 0 || vert != 0)
+        {
+            //set forward vect directly for now, lerp later
+            //transform.forward = RotateVector(transform.forward, horiz * turnSpeed, vert * turnSpeed);
+
+            //test
+            //Vector2 f = transform.forward;
+            //f = RotateVector2D(f, horiz * 0.1f);
+            //transform.forward = new Vector3(transform.forward.x + f.x, transform.forward.y + f.y, transform.forward.z);
+
+            //UNITY
+            Vector3 rot = transform.eulerAngles;
+            //need to use 'floored modulus' here (google it)
+            rot.x = (rot.x - vert) % 360f;
+            rot.y = (rot.y + horiz) % 360f;
+            transform.eulerAngles = rot;
+        }
     }
 
     void MoveForward()
     {
-        transform.Translate(0, 0, speed * Time.deltaTime);
+        transform.Translate(0, 0, moveSpeed * Time.deltaTime);
     }
 
     public static float GetAngleFromVect2D(Vector2 vector)
     {
         float x = vector.x;
         float y = vector.y;
-        float angleDegrees = GetAngleFromComponents2D(x, y);
-        return angleDegrees;
+        float angleRadians = GetAngleFromComponents2D(x, y);
+        return angleRadians;
     }
     public static float GetAngleFromComponents2D(float x, float y)
     {
         float angleRadians = Mathf.Atan2(y, x);
-        float angleDegrees = angleRadians * Mathf.Rad2Deg;
-        return angleDegrees;
+        return angleRadians;
     }
 
     public static Vector2 RotateVector2D(Vector2 vector, float angleAdd)
