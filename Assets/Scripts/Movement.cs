@@ -4,7 +4,7 @@ using System.Collections;
 public class Movement : MonoBehaviour {
 
     public float moveSpeed = 3f;
-    public float turnSpeed = 0.02f;
+    public float turnSpeed = 0.5f;
 
 	void Start () {
         Vector2 simpleTriangle = new Vector2(1, Mathf.Sqrt(3));
@@ -21,10 +21,13 @@ public class Movement : MonoBehaviour {
         Turn();
         MoveForward();
         Camera.main.transform.LookAt(transform);
+        Normalize();
     }
 
     void Turn()
     {
+        //relative to player's orientation:
+
         float horiz = Input.GetAxisRaw("Horizontal");
         float vert = Input.GetAxisRaw("Vertical");
         //print(horiz + " : " + vert);
@@ -39,11 +42,27 @@ public class Movement : MonoBehaviour {
             //transform.forward = new Vector3(transform.forward.x + f.x, transform.forward.y + f.y, transform.forward.z);
 
             //UNITY
-            Vector3 rot = transform.eulerAngles;
+            //Vector3 rot = transform.eulerAngles;
             //need to use 'floored modulus' here (google it)
-            rot.x = (rot.x - vert) % 360f;
-            rot.y = (rot.y + horiz) % 360f;
-            transform.eulerAngles = rot;
+            //rot.x = (rot.x - vert) % 360f;
+            //rot.y = (rot.y + horiz) % 360f;
+            //transform.eulerAngles = rot;
+
+            //QUATERNIONS
+            //x,y,z   =red,green,blue   ===~~    roll,yaw,pitch(!)  (lhs vs rhs) == t.forward, t.up, t.right === input: undefiend, left/right keys, up/down keys
+
+            //vert --> left/right keys --> pitch
+            Vector3 axisRotationPitch = transform.right;
+            float turnAngleVertical = vert * turnSpeed;
+            Quaternion pitchDelta = Quaternion.AngleAxis(turnAngleVertical, axisRotationPitch);
+ 
+            //horiz --> up/down keys
+            Vector3 axisRotationYaw = transform.up;
+            float turnAngleHorizontal = horiz * turnSpeed;
+            Quaternion yawDelta = Quaternion.AngleAxis(turnAngleHorizontal, axisRotationYaw);
+
+            transform.rotation *= pitchDelta * yawDelta;
+
         }
     }
 
