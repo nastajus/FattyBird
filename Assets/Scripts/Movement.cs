@@ -25,34 +25,17 @@ public class Movement : MonoBehaviour {
         if (horiz != 0 || vert != 0)
         {
 
-            Quaternion pitchDelta = RotatePitch(vert);
-            
-            Quaternion yawDelta = RotateYaw(horiz);
- 
+            //vert --> left/right keys --> pitch
+            Quaternion pitchDelta = Quaternion.AngleAxis(vert, transform.right);
+
+            //horiz --> up/down keys --> yaw
+            Quaternion yawDelta = Quaternion.AngleAxis(horiz, transform.up);
 
             //roll undefined
 
             transform.rotation *= pitchDelta * yawDelta;
 
         }
-    }
-
-    Quaternion RotatePitch(float vert){
-        //vert --> left/right keys --> pitch
-        Vector3 axisRotationPitch = transform.right;
-        float turnAngleVertical = vert * turnSpeed;
-        Quaternion pitchDelta = Quaternion.AngleAxis(turnAngleVertical, axisRotationPitch);
-        return pitchDelta;
-    }
-
-    Quaternion RotateYaw(float horiz)
-    {
-        //horiz --> up/down keys --> yaw
-        Vector3 axisRotationYaw = transform.up;
-        float turnAngleHorizontal = horiz * turnSpeed;
-        Quaternion yawDelta = Quaternion.AngleAxis(turnAngleHorizontal, axisRotationYaw);
-        return yawDelta;
-
     }
 
     void MoveForward()
