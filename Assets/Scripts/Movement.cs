@@ -8,12 +8,12 @@ public class Movement : MonoBehaviour {
 
 	void Start () {
 
- 	}
+    }
 	
 	void Update () {
         Turn();
         MoveForward();
-        Camera.main.transform.LookAt(transform);
+
     }
 
     void Turn()
@@ -32,8 +32,9 @@ public class Movement : MonoBehaviour {
             Quaternion yawDelta = Quaternion.AngleAxis(horiz, transform.up);
 
             //roll undefined
+            //transform.rotation = Quaternion.AngleAxis(0, yawDelta * pitchDelta * transform.forward ); 
 
-            transform.rotation *= pitchDelta * yawDelta;
+            transform.rotation *= Quaternion.Euler(-vert, horiz, -0);
 
         }
     }
@@ -41,5 +42,6 @@ public class Movement : MonoBehaviour {
     void MoveForward()
     {
         transform.Translate(0, 0, moveSpeed * Time.deltaTime);
-    }     
+    }
+
 }
