@@ -1,15 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Dog : MonoBehaviour {
+public class Dog : Animal {
 
-	// Use this for initialization
-	void Start () {
+	protected override void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	protected override void Update () {
+		Move();
 	}
+
+	protected override void Move() {
+		Walk();
+	}
+
+	protected void Walk() {
+		MoveForward();
+		Turn();
+	}
+
+	protected override void Turn()
+	{
+		//relative to player's orientation:
+		float horiz = Input.GetAxisRaw("Horizontal");
+		float vert = Input.GetAxisRaw("Vertical");
+
+		if (horiz != 0 || vert != 0)
+		{
+			transform.rotation *= Quaternion.Euler(-vert, 0, -0);
+		}
+
+	}
+
+
 }

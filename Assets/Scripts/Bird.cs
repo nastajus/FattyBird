@@ -20,4 +20,17 @@ public class Bird : Animal {
 		Turn();
 	}
 
+	protected override void Turn()
+	{
+		//relative to player's orientation:
+		float horiz = Input.GetAxisRaw("Horizontal");
+		float vert = Input.GetAxisRaw("Vertical");
+
+		if (horiz != 0 || vert != 0)
+		{
+			transform.rotation *= Quaternion.Euler(-vert, horiz, -0);
+		}
+
+	}
+
 }
