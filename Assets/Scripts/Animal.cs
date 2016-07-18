@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(Active))]
 public abstract class Animal : MonoBehaviour {
 
 	public float moveSpeed = 3f;
 	public float turnSpeed = 0.5f;
 
-	protected abstract void Start();
+	protected virtual void Start() {
+		gameObject.AddComponent<Active>();
+	}
 	
 	protected abstract void Update();
 
@@ -18,4 +21,6 @@ public abstract class Animal : MonoBehaviour {
 	{
 		transform.Translate(0, 0, moveSpeed * Time.deltaTime);
 	}
+
+	//protected abstract void Animate();
 }

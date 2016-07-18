@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Dog : Animal {
 
+	List<Leg> legs;
+
 	protected override void Start () {
-	
+		base.Start();
 	}
 
 	protected override void Update () {
@@ -18,6 +21,7 @@ public class Dog : Animal {
 	protected void Walk() {
 		MoveForward();
 		Turn();
+		Animate();
 	}
 
 	protected override void Turn()
@@ -28,10 +32,26 @@ public class Dog : Animal {
 
 		if (horiz != 0 || vert != 0)
 		{
-			transform.rotation *= Quaternion.Euler(-vert, 0, -0);
+			transform.rotation *= Quaternion.Euler(-0, horiz, -0);
 		}
 
 	}
 
+	void Animate(){
+		MoveLegs();
+	}
+
+	void MoveLegs(){
+		
+	}
+
+	void GetLegs(){
+		Component[] hingeJoints;
+		hingeJoints = GetComponentsInChildren<HingeJoint>();
+		foreach (HingeJoint joint in hingeJoints) {
+			joint.useSpring = false;
+		}
+
+	}
 
 }

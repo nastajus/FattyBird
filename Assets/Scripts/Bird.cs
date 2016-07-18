@@ -4,7 +4,7 @@ using System.Collections;
 public class Bird : Animal {
 
 	protected override void Start () {
-	
+		base.Start();
 	}
 	
 	protected override void Update () {
@@ -32,5 +32,9 @@ public class Bird : Animal {
 		}
 
 	}
+
+	//protected override void Animate(){
+	//	
+	//}
 
 }
