@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(Active))]
-public abstract class Animal : MonoBehaviour {
+[RequireComponent(typeof(Active))]
+[RequireComponent(typeof(Rigidbody))]
+public abstract class Animal : Player {
 
 	public float moveSpeed = 3f;
 	public float turnSpeed = 0.5f;
 
-	protected virtual void Start() {
-		gameObject.AddComponent<Active>();
-	}
-	
-	protected abstract void Update();
+    protected override void Update()
+    {
 
-	protected abstract void Move();
+    }
+
+    protected abstract void Move();
 
 	protected abstract void Turn();
 
@@ -23,4 +23,5 @@ public abstract class Animal : MonoBehaviour {
 	}
 
 	//protected abstract void Animate();
+
 }
