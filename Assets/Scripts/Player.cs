@@ -3,7 +3,10 @@ using System.Collections;
 
 [RequireComponent(typeof(Active))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Inventory))]
 public abstract class Player : MonoBehaviour {
+
+    protected Inventory inventory;
 
     protected virtual void Start()
     {
@@ -11,6 +14,8 @@ public abstract class Player : MonoBehaviour {
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         rb.useGravity = false;
         rb.isKinematic = true;
+
+        inventory = gameObject.AddComponent<Inventory>();
     }
 
     protected virtual void Update()
@@ -18,9 +23,10 @@ public abstract class Player : MonoBehaviour {
 
     }
 
-    public bool Pickup(Object o)
+    public bool Pickup(Item item)
     {
-        print(o.GetType());
+        print("Picked up: " + item.GetType());
+        inventory.Add(item); 
         return true;
     }
 }

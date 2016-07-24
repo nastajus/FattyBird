@@ -24,4 +24,9 @@ public abstract class Animal : Player {
 
 	//protected abstract void Animate();
 
+    protected virtual void Digest()
+    {
+        //inventory.
+    }
+
 }
