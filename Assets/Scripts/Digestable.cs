@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Digestable : Item {
+public abstract class Digestable : Item {
+
+    protected float calories_;
+    protected abstract float Calories { get; }
 
     protected override void Start() {
         base.Start();

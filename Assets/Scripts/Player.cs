@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Active))]
 [RequireComponent(typeof(Rigidbody))]
@@ -23,7 +24,7 @@ public abstract class Player : MonoBehaviour {
 
     }
 
-    public bool Pickup(Item item)
+    public virtual bool Pickup(Item item)
     {
         print("Picked up: " + item.GetType());
         inventory.Add(item); 

@@ -13,5 +13,10 @@ public class Item : MonoBehaviour {
         powerup.Update();
 	}
 
+    //TODO: i'm uncertain this is a good place
+    public bool IsEdible()
+    {
+        return (this is Digestable) ? true : false;
+    }
 
 }
