@@ -37,7 +37,7 @@ public class Powerup : MonoBehaviour {
 
     void UtilDelete(GameObject gameObject)
     {
-        //Destroy(gameObject);
+        Destroy(gameObject.transform.root.gameObject);
     }
 
     void UtilPlaySound(Sound sound)
