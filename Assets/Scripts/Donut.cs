@@ -4,7 +4,7 @@ using System;
 
 public class Donut : Digestable {
 
-    protected override float Calories
+    public override float Calories
     {
         get { return 100; }
     }
@@ -16,4 +16,5 @@ public class Donut : Digestable {
     protected override void Update () {
         base.Update();
 	}
+
 }

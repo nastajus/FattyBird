@@ -30,15 +30,15 @@ public class Powerup : MonoBehaviour {
             if (pickedUp)
             {
                 UtilPlaySound(this.sound);
-                UtilDelete(this.gameObject);
+                //UtilDelete(this.gameObject);
             }
         }
     }
 
-    void UtilDelete(GameObject gameObject)
-    {
-        Destroy(gameObject.transform.root.gameObject);
-    }
+    //void UtilDelete(GameObject gameObject)
+    //{
+    //    Destroy(gameObject.transform);
+    //}
 
     void UtilPlaySound(Sound sound)
     {

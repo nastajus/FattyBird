@@ -49,7 +49,7 @@ public abstract class Animal : Player
     {
         if (item.IsEdible())
         {
-            stomach.Add(item);
+            stomach.Add((Digestable)item);
             return true;
         }
         return false;
